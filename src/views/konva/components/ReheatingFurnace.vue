@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type Konva from 'konva'
+
 type Props = {
   x: number
   y: number
@@ -27,19 +29,19 @@ const rectsConfig = [
 // 🔥 Custom Flame Shape
 const flameConfig = {
   sceneFunc: (context: Konva.Context, shape: Konva.Shape) => {
-    context.beginPath();
-    context.moveTo(30, 60);
-    context.bezierCurveTo(10, 20, 40, 10, 25, 0); // Left curve
-    context.bezierCurveTo(50, 10, 70, 20, 50, 60); // Right curve
-    context.closePath();
-    context.fillStrokeShape(shape);
+    context.beginPath()
+    context.moveTo(30, 60)
+    context.bezierCurveTo(10, 20, 40, 10, 25, 0) // Left curve
+    context.bezierCurveTo(50, 10, 70, 20, 50, 60) // Right curve
+    context.closePath()
+    context.fillStrokeShape(shape)
   },
-  fill: "orange",
+  fill: 'orange',
   scaleX: 1.2,
   scaleY: 1.4,
   x: 40,
   y: -20,
-};
+}
 </script>
 
 <template>
@@ -52,6 +54,5 @@ const flameConfig = {
 
     <!-- Flame Path -->
     <v-path :config="{ ...flameConfig, scaleX: 1.2, scaleY: 1.2, x: 70, y: 10 }" />
-
   </v-group>
 </template>
