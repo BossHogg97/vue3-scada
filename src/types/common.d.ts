@@ -1,0 +1,3 @@
+type IAnimation = {
+  startAnimation: boolean
+}
