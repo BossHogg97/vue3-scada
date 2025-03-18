@@ -8,11 +8,6 @@ type Props = {
 
 const props = defineProps<Props>()
 
-
-// Define [Node Position]
-const xPos = props.x
-const yPos = props.y
-
 // Base rectangle configuration
 const baseRectConfig = {
   x: 50,
@@ -50,7 +45,7 @@ const flameConfig = {
 </script>
 
 <template>
-  <v-group :config="{ xPos, yPos }">
+  <v-group :config="{ x, y }">
     <!-- Base Rectangle -->
     <v-rect :config="baseRectConfig" />
 
