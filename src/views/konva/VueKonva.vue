@@ -4,33 +4,31 @@ import ReheatingFurnace from './components/ReheatingFurnace.vue'
 import NodeConnection from './components/NodeConnection.vue'
 
 // Utility Imports
-import { onMounted } from 'vue'
 import { NButton } from 'naive-ui'
+import { useEventBus } from '@vueuse/core'
+import { ref } from 'vue'
 
-// Start animation on mount
-onMounted(() => {
-  // animate()
-})
+// Enum Imports
+import { EnumEvents } from '@/enums/business'
 
-// Animation Loop
-// const animate = () => {
-//   // Move slabs forward
-//   slabs.value.forEach((slab) => {
-//     slab.x += 1
-//     if (slab.x > 700) slab.x = 50 // Loop back
-//   })
+// Event definition
+const evtToggleAnimation = useEventBus<IAnimation>(EnumEvents.ToggleAnimation)
 
-//   // Simulate burner flames pulsing
-//   burners.value.forEach((burner, index) => {
-//     const scale = 1 + 0.1 * Math.sin(Date.now() / 200 + index)
-//     burner.scaleX = scale
-//     burner.scaleY = scale
-//   })
+const animationStatus = ref<boolean>(false)
 
-//   requestAnimationFrame(animate)
-// }
+/**
+ * Utility function used for change status and toggle the animation
+ */
+const changeStatus = () => {
+  // toggle animation status
+  animationStatus.value = !animationStatus.value
 
-const changeStatus = () => {}
+  const statusEvt: IAnimation = {
+    startAnimation: animationStatus.value,
+  }
+
+  evtToggleAnimation.emit(statusEvt)
+}
 </script>
 
 <template>
