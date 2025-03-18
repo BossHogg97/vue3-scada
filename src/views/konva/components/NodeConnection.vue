@@ -6,7 +6,9 @@ type Props = {
 
 const props = defineProps<Props>()
 
-console.log('props: ', props);
+// Define [Node Position]
+const xPos = props.x
+const yPos = props.y
 
 // Base rectangle configuration
 const baseRectConfig = {
@@ -15,13 +17,12 @@ const baseRectConfig = {
   width: 150,
   height: 10,
   stroke: 'black',
-  fill: 'black'
+  fill: 'black',
 }
-
 </script>
 
 <template>
-  <v-group :config="{ x, y }">
+  <v-group :config="{ xPos , yPos }">
     <!-- Base Rectangle -->
     <v-rect :config="baseRectConfig" />
   </v-group>
