@@ -1,10 +1,9 @@
 <script setup lang="ts">
-// Enum Imports
+import { ref } from 'vue'
+import { useEventBus } from '@vueuse/core'
 import { EnumEvents } from '@/enums/business'
 
-// Utility Imports
-import { useEventBus } from '@vueuse/core'
-
+// Define props
 type Props = {
   x: number
   y: number
@@ -12,45 +11,76 @@ type Props = {
 
 const props = defineProps<Props>()
 
-// Event Definition
+// Event Bus for Animation Toggle
 const evtToggleAnimation = useEventBus<IAnimation>(EnumEvents.ToggleAnimation)
 
-// Base rectangle configuration
-const baseRectConfig = {
+// Reactive Base Rectangle Configuration
+const baseRectConfig = ref({
   x: 50,
   y: 70,
   width: 150,
   height: 10,
   stroke: 'black',
-  fill: 'black',
-}
-
-evtToggleAnimation.on(() => {
-  animate()
+  fillLinearGradientStartPoint: { x: 0, y: 0 },
+  fillLinearGradientEndPoint: { x: 150, y: 0 }, // Horizontal gradient
+  fillLinearGradientColorStops: [0, 'green', 1, 'darkgreen'], // Initial gradient
 })
 
-// Animation Loop
+let gradientShift = 0
+let animationFrameId: number | null = null
+
+/**
+ * This function will start the animation
+ */
 const animate = () => {
-  // Move slabs forward
-  // slabs.value.forEach((slab) => {
-  //   slab.x += 1
-  //   if (slab.x > 700) slab.x = 50 // Loop back
-  // })
+  gradientShift += 0.1 // Adjust speed of gradient shift
 
-  // // Simulate burner flames pulsing
-  // burners.value.forEach((burner, index) => {
-  //   const scale = 1 + 0.1 * Math.sin(Date.now() / 200 + index)
-  //   burner.scaleX = scale
-  //   burner.scaleY = scale
-  // })
+  // Create a pulsing effect by shifting green color stops
+  const newGradientStops = [
+    0,
+    `rgb(${50 + 100 * Math.sin(gradientShift)}, 255, ${50 + 100 * Math.cos(gradientShift)})`,
+    1,
+    `rgb(${0 + 100 * Math.cos(gradientShift)}, 150, ${0 + 100 * Math.sin(gradientShift)})`,
+  ]
 
-  requestAnimationFrame(animate)
+  // Force Vue to detect the change by using Object.assign()
+  Object.assign(baseRectConfig.value, {
+    fillLinearGradientColorStops: newGradientStops,
+  })
+
+  animationFrameId = requestAnimationFrame(animate)
+}
+
+/**
+ * Start Animation on Event Trigger
+ */
+evtToggleAnimation.on((data: IAnimation) => {
+  if (data.startAnimation) {
+    animate()
+  } else {
+    stopAnimation()
+  }
+})
+
+/**
+ * Stop Animation function
+ */
+const stopAnimation = () => {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId)
+    animationFrameId = null
+
+    // Reset gradient
+    Object.assign(baseRectConfig.value, {
+      fillLinearGradientColorStops: [0, 'green', 1, 'darkgreen'],
+    })
+  }
 }
 </script>
 
 <template>
   <v-group :config="{ x, y }">
-    <!-- Base Rectangle -->
+    <!-- Animated Gradient Rectangle -->
     <v-rect :config="baseRectConfig" />
   </v-group>
 </template>
