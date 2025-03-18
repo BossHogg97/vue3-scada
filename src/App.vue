@@ -9,12 +9,12 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/linearGraph">Linear Graphs</RouterLink>
-        <RouterLink to="/patternRecognition">Pattern Recognition</RouterLink>
+        <!-- <RouterLink to="/linearGraph">Linear Graphs</RouterLink>
+        <RouterLink to="/patternRecognition">Pattern Recognition</RouterLink> -->
         <RouterLink to="/vueKonva">Vue Konva</RouterLink>
-        <RouterLink to="/scada/diagram">Scada Diagram</RouterLink>
+        <!-- <RouterLink to="/scada/diagram">Scada Diagram</RouterLink>
         <RouterLink to="/scada/d3/diagram/v1">Scada Diagram D3 LIB - V1</RouterLink>
-        <RouterLink to="/scada/d3/diagram/v2">Scada Diagram D3 LIB - V2</RouterLink>
+        <RouterLink to="/scada/d3/diagram/v2">Scada Diagram D3 LIB - V2</RouterLink> -->
       </nav>
     </div>
   </header>
