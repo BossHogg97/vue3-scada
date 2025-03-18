@@ -6,6 +6,8 @@ type Props = {
 
 const props = defineProps<Props>()
 
+console.log('props: ', props);
+
 // Base rectangle configuration
 const baseRectConfig = {
   x: 50,

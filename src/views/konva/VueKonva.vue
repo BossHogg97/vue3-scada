@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // Component Imports
-import reheatingFurnace from './components/ReheatingFurnace.vue'
-import MachineryConnection from './components/MachineryConnection.vue';
+import ReheatingFurnace from './components/ReheatingFurnace.vue'
+import NodeConnection from './components/NodeConnection.vue';
 
 // Utility Imports
 import { onMounted } from 'vue';
@@ -38,7 +38,7 @@ onMounted(() => {
     </v-layer>
 
     <v-layer>
-      <machinery-connection :x="225" :y="70" />
+      <node-connection :x="225" :y="70" />
     </v-layer>
 
     <v-layer>
